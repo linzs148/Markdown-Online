@@ -13,16 +13,39 @@
 	</head>
 	<body>
 		<div class="header">
-			header
+			
+			<div class="dropdown">
+			  <div class="dropshow">标题</div>
+			  <div class="dropdown-content">
+				<button onclick="writeTitle(1)">一级标题</button>
+			    <button onclick="writeTitle(2)">二级标题</button>
+				<button onclick="writeTitle(3)">三级标题</button>
+				<button onclick="writeTitle(4)">四级标题</button>
+				<button onclick="writeTitle(5)">五级标题</button>
+				<button onclick="writeTitle(6)">六级标题</button>
+			  </div>
+			</div>
+			
+			<button class="button bold" onclick="writeBold()">粗体</button>
+			<button class="button italic" onclick="writeItalic()">斜体</button>
+			<button class="button deleted" onclick="writeDeleted()">删除线</button>
+			<button class="button image" onclick="writeImage()">图片</button>
+			<button class="button url" onclick="writeUrl()">链接</button>
+			<button class="button separator" onclick="writeSeparator()">分割线</button>
+			<button class="button codearea" onclick="writeCode()">代码</button>
+			<button class="button quote" onclick="writeQuote()">引用</button>
+			<button class="button unordered_list" onclick="writeUnorderedList()">无序列表</button>
+			<button class="button ordered_list" onclick="writeOrderedList()">有序列表</button>
+			
 		</div>
 
 		<div class="mainbody">
-			<div class="left"> <textarea oninput="getInput(event)"></textarea> </div>
+			<div class="left"><textarea oninput="getInput(event)"></textarea></div>
 			<div class="right"></div>
 		</div>
 
 		<div class="footer">
-			<p>footer</p>
+			<p class="copy">© 2021 linzs148. <a href="https://github.com/linzs148/tech-training-camp-frontend" target="_blank">Fork me on github</a></p>
 		</div>
 	</body>
 </html>

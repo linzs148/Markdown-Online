@@ -1,17 +1,6 @@
- //Firefox, Google Chrome, Opera, Safari, Internet Explorer from version 9
- //        function OnInput (event) {
- //        	console.log(event.target.value);
- //        }
- //Internet Explorer
- //        function OnPropChanged (event) {
- //            if (event.propertyName.toLowerCase () == "value") {
- //            	console.log(event.srcElement.value);
- //            }
- //        }
-
 function getInput(event){
 	let str = event.target.value;
-	document.querySelector(".right").innerHTML = processInput(str);
+	processInput(str);
 }
 
 function processInput(str){
@@ -22,19 +11,36 @@ function processInput(str){
 	
 	for (let i = 0; i < n; i++) {
 		let line = lines[i], flag = true;
-		//图片
-		//链接
+		
+		//检测代码块
+		let code = /^\s*`{3,}/g;
+		if (code.test(line)) {
+			if (state) {
+				res += '</code></pre>';
+				state = false;
+			}
+			else {
+				res += '<pre class="line-numbers"><code class="language-js">';
+				state = true;
+			}
+			continue;
+		}
+		
+		if (state) {
+			res += line + "\n";
+			continue;
+		}
 		
 		//检测分割线
-		let separators = /^\*{3,}\s*$|^-{3,}$/g;
+		let separator = /^\*{3,}\s*$|^-{3,}$/g;
 		//查 改
-		if (separators.test(line)) {
+		if (separator.test(line)) {
 			res += "<hr/ >";
 			continue;
 		}
 		
 		//检测引用
-		let quote = /^>\s*/g;
+		let quote = /^\s*>\s*/g;
 		let cnt = 0;
 		//cnt记录有几个开头的>
 		while (quote.test(line)) {
@@ -48,7 +54,7 @@ function processInput(str){
 		let title = /^#+\s+/g;
 		let number = 0;
 		if (title.test(line)) {
-			number = line.match(title)[0].length;
+			number = line.match(title)[0].replace(/\s+/g, "").length;
 			if (number > 6) number = 6;
 			flag = false;
 		}
@@ -58,22 +64,10 @@ function processInput(str){
 		if (line.replace(/\s+/g,"").length === 0) line = '<div class="blockquote"></div>'
 		for (let i = 0; i < cnt; i++) line = "<blockquote>" + line + "</blockquote>";
 		
-		//检测代码块
-		let code = /^`{3,}/g;
-		if (code.test(line)) {
-			if (state) {
-				res += '</code></pre>';
-				state = false;
-			}
-			else {
-				res += '<pre class="line-numbers"><code class="language-js">';
-				state = true;
-			}
-			continue;
-		}
+		
 
 		//检测无序列表
-		let unordered_list = /^[\*+-]\s+/g;
+		let unordered_list = /^\s*[\*+-]\s+/g;
 		if (unordered_list.test(line)) {
 			let idx = line.match(unordered_list)[0].length;
 			line = "<ul><li>" + line.substring(idx) + "</li></ul>";
@@ -81,7 +75,7 @@ function processInput(str){
 		}
 		
 		//检测有序列表
-		let ordered_list = /^\d\.\s+/g;
+		let ordered_list = /^\s*\d\.\s+/g;
 		if (ordered_list.test(line)) {
 			let idx = line.match(ordered_list)[0].length;
 			line = "<ol><li>" + line.substring(idx) + "</li></ol>";
@@ -112,7 +106,7 @@ function processInput(str){
 		}
 		
 		//检测斜体
-		let italic = /\*.+?\*|_.+?_/g;
+		let italic = /\*.+?\*/g;
 		if (italic.test(line)) {
 			let items = line.match(italic);
 			let length = items.length;
@@ -159,37 +153,117 @@ function processInput(str){
 		}
 		
 		//检测链接
-		let a = /\[.*?\]\(.*?\)/g;
-		if (a.test(line)) {
-			let items = line.match(a);
+		let url = /\[.*?\]\(.*?\)/g;
+		if (url.test(line)) {
+			let items = line.match(url);
 			let length = items.length;
 			for (let i = 0; i < length; i++) {
 				let item = items[i];
 				let attrs = item.split("](");
 				let name = attrs[0].substring(1);
 				let href = attrs[1].substring(0, attrs[1].length - 1);
-				console.log(name);
-				console.log(href);
 				line = line.replace(item, '<a target="_blank", href="' + href + '">' + name + '</a>');
-				console.log(line);
 			}
 		}
 		
 		res += line;
-		if (state) {
-			console.log(line);
-			res += "\n";
-			continue;
-		}
 		if (flag) res += "<br />";
 	}
 	
 	res = res.replace(/<\/ul>\s*<ul>/g, "").replace(/<\/ol>\s*<ol>/g, "");
-	return res;
+	document.querySelector(".right").innerHTML = res;
 }
 
-// var l=document.querySelector('.left')
-// var r=document.querySelectror('.right')
-// r.addEventListener('scroll',function(){
-//   l.scrollTop = r.scrollTop
-// })
+function isEndWithSpace(str) {
+	if (str !== "" && str.charAt(str.length - 1) !== "\n") str += "\n"
+	return str;
+}
+
+function writeTitle(level) {
+	let str = document.querySelector("textarea").value;
+	str = isEndWithSpace(str);
+	for (let i = 0; i < level; i++) str += "#";
+	str += " 这是标题";
+	document.querySelector("textarea").value = str;
+	processInput(str);
+}
+
+function writeBold() {
+	let str = document.querySelector("textarea").value;
+	str = isEndWithSpace(str);
+	str += "**这是粗体**";
+	document.querySelector("textarea").value = str;
+	processInput(str);
+}
+
+function writeItalic() {
+	let str = document.querySelector("textarea").value;
+	str = isEndWithSpace(str);
+	str += "*这是斜体*";
+	document.querySelector("textarea").value = str;
+	processInput(str);
+}
+
+function writeDeleted() {
+	let str = document.querySelector("textarea").value;
+	str = isEndWithSpace(str);
+	str += "~~这是删除线~~";
+	document.querySelector("textarea").value = str;
+	processInput(str);
+}
+
+function writeImage() {
+	let str = document.querySelector("textarea").value;
+	str = isEndWithSpace(str);
+	str += "![这是图片](https://www.hualigs.cn/image/6050c9761bab7.jpg)";
+	document.querySelector("textarea").value = str;
+	processInput(str);
+}
+
+function writeUrl() {
+	let str = document.querySelector("textarea").value;
+	str = isEndWithSpace(str);
+	str += "[这是链接](https://www.baidu.com/)";
+	document.querySelector("textarea").value = str;
+	processInput(str);
+}
+
+function writeSeparator() {
+	let str = document.querySelector("textarea").value;
+	str = isEndWithSpace(str);
+	str += "这是分割线\n***\n";
+	document.querySelector("textarea").value = str;
+	processInput(str);
+}
+
+function writeCode() {
+	let str = document.querySelector("textarea").value;
+	str = isEndWithSpace(str);
+	str += "```\n这是代码\n```";
+	document.querySelector("textarea").value = str;
+	processInput(str);
+}
+
+function writeQuote() {
+	let str = document.querySelector("textarea").value;
+	str = isEndWithSpace(str);
+	str += "> 这是引用\n> 这也是引用";
+	document.querySelector("textarea").value = str;
+	processInput(str);
+}
+
+function writeUnorderedList() {
+	let str = document.querySelector("textarea").value;
+	str = isEndWithSpace(str);
+	str += "* 无\n* 序\n* 列\n* 表";
+	document.querySelector("textarea").value = str;
+	processInput(str);
+}
+
+function writeOrderedList() {
+	let str = document.querySelector("textarea").value;
+	str = isEndWithSpace(str);
+	str += "1. 有\n2. 序\n3. 列\n4. 表";
+	document.querySelector("textarea").value = str;
+	processInput(str);
+}
