@@ -4,13 +4,15 @@ function getInput(event){
 }
 
 function processInput(str){
-	let res = "";
-	lines = str.split("\n");
-	let n = lines.length;
-	let state = false;
+	let lines = str.split("\n"),
+	n = lines.length,
+	res = "",
+	state = false;
+	//state记录代码块的开始和结束
 	
 	for (let i = 0; i < n; i++) {
 		let line = lines[i], flag = true;
+		//flag记录结尾是否要加<br />
 		
 		//检测代码块
 		let code = /^\s*`{3,}/g;
@@ -32,8 +34,7 @@ function processInput(str){
 		}
 		
 		//检测分割线
-		let separator = /^\*{3,}\s*$|^-{3,}$/g;
-		//查 改
+		let separator = /^(\*{3,}|-{3,})\s*$/g;
 		if (separator.test(line)) {
 			res += "<hr/ >";
 			continue;
@@ -174,21 +175,13 @@ function processInput(str){
 	document.querySelector(".right").innerHTML = res;
 }
 
-function isEndWithSpace(str) {
-	if (str !== "" && str.charAt(str.length - 1) !== "\n") str += "\n"
-	return str;
-}
-
-function writeTitle(level) {
-	let str = document.querySelector("textarea").value;
-	str = isEndWithSpace(str);
-	for (let i = 0; i < level; i++) str += "#";
-	str += " 这是标题";
-	document.querySelector("textarea").value = str;
-	processInput(str);
-}
-
 function writeStyle(target) {
+	
+	function isEndWithSpace(str) {
+		if (str !== "" && str.charAt(str.length - 1) !== "\n") str += "\n"
+		return str;
+	}
+	
 	let str = document.querySelector("textarea").value;
 	str = isEndWithSpace(str);
 	str += target;

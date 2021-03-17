@@ -17,12 +17,12 @@
 			<div class="dropdown">
 			  <div class="dropshow">标题</div>
 			  <div class="dropdown-content">
-				<button onclick="writeTitle(1)">一级标题</button>
-			    <button onclick="writeTitle(2)">二级标题</button>
-				<button onclick="writeTitle(3)">三级标题</button>
-				<button onclick="writeTitle(4)">四级标题</button>
-				<button onclick="writeTitle(5)">五级标题</button>
-				<button onclick="writeTitle(6)">六级标题</button>
+				<button onclick="writeStyle('# 这是标题')">一级标题</button>
+			    <button onclick="writeStyle('## 这是标题')">二级标题</button>
+				<button onclick="writeStyle('### 这是标题')">三级标题</button>
+				<button onclick="writeStyle('#### 这是标题')">四级标题</button>
+				<button onclick="writeStyle('##### 这是标题')">五级标题</button>
+				<button onclick="writeStyle('###### 这是标题')">六级标题</button>
 			  </div>
 			</div>
 			
@@ -34,7 +34,7 @@
 			<button class="button separator" onclick="writeStyle('这是分割线\n***\n')">分割线</button>
 			<button class="button codearea" onclick="writeStyle('```\n这是代码\n```')">代码</button>
 			<button class="button quote" onclick="writeStyle('> 这是引用\n> 这也是引用')">引用</button>
-			<button class="button unordered_list" onclick="writeStyle('* 无\n* 序\n* 列\n* 表')">无序列表</button>
+			<button class="button unordered_list" onclick="writeStyle('- 无\n- 序\n- 列\n- 表')">无序列表</button>
 			<button class="button ordered_list" onclick="writeStyle('1. 有\n2. 序\n3. 列\n4. 表')">有序列表</button>
 			
 		</div>
