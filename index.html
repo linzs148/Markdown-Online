@@ -26,16 +26,16 @@
 			  </div>
 			</div>
 			
-			<button class="button bold" onclick="writeBold()">粗体</button>
-			<button class="button italic" onclick="writeItalic()">斜体</button>
-			<button class="button deleted" onclick="writeDeleted()">删除线</button>
-			<button class="button image" onclick="writeImage()">图片</button>
-			<button class="button url" onclick="writeUrl()">链接</button>
-			<button class="button separator" onclick="writeSeparator()">分割线</button>
-			<button class="button codearea" onclick="writeCode()">代码</button>
-			<button class="button quote" onclick="writeQuote()">引用</button>
-			<button class="button unordered_list" onclick="writeUnorderedList()">无序列表</button>
-			<button class="button ordered_list" onclick="writeOrderedList()">有序列表</button>
+			<button class="button bold" onclick="writeStyle('**这是粗体**')">粗体</button>
+			<button class="button italic" onclick="writeStyle('*这是斜体*')">斜体</button>
+			<button class="button deleted" onclick="writeStyle('~~这是删除线~~')">删除线</button>
+			<button class="button image" onclick="writeStyle('![这是图片](https://www.hualigs.cn/image/6050c9761bab7.jpg)')">图片</button>
+			<button class="button url" onclick="writeStyle('[这是链接](https://www.baidu.com/)')">链接</button>
+			<button class="button separator" onclick="writeStyle('这是分割线\n***\n')">分割线</button>
+			<button class="button codearea" onclick="writeStyle('```\n这是代码\n```')">代码</button>
+			<button class="button quote" onclick="writeStyle('> 这是引用\n> 这也是引用')">引用</button>
+			<button class="button unordered_list" onclick="writeStyle('* 无\n* 序\n* 列\n* 表')">无序列表</button>
+			<button class="button ordered_list" onclick="writeStyle('1. 有\n2. 序\n3. 列\n4. 表')">有序列表</button>
 			
 		</div>
 

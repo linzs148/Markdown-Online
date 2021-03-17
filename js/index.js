@@ -148,7 +148,7 @@ function processInput(str){
 				let attrs = item.split("](");
 				let name = attrs[0].substring(2);
 				let src = attrs[1].substring(0, attrs[1].length - 1);
-				line = line.replace(item, '<img src="' + src + '" name="' + name + '"></img>');
+				line = line.replace(item, '<div class="img"><img src="' + src + '" name="' + name + '"></img></div>');
 			}
 		}
 		
@@ -188,82 +188,10 @@ function writeTitle(level) {
 	processInput(str);
 }
 
-function writeBold() {
+function writeStyle(target) {
 	let str = document.querySelector("textarea").value;
 	str = isEndWithSpace(str);
-	str += "**这是粗体**";
-	document.querySelector("textarea").value = str;
-	processInput(str);
-}
-
-function writeItalic() {
-	let str = document.querySelector("textarea").value;
-	str = isEndWithSpace(str);
-	str += "*这是斜体*";
-	document.querySelector("textarea").value = str;
-	processInput(str);
-}
-
-function writeDeleted() {
-	let str = document.querySelector("textarea").value;
-	str = isEndWithSpace(str);
-	str += "~~这是删除线~~";
-	document.querySelector("textarea").value = str;
-	processInput(str);
-}
-
-function writeImage() {
-	let str = document.querySelector("textarea").value;
-	str = isEndWithSpace(str);
-	str += "![这是图片](https://www.hualigs.cn/image/6050c9761bab7.jpg)";
-	document.querySelector("textarea").value = str;
-	processInput(str);
-}
-
-function writeUrl() {
-	let str = document.querySelector("textarea").value;
-	str = isEndWithSpace(str);
-	str += "[这是链接](https://www.baidu.com/)";
-	document.querySelector("textarea").value = str;
-	processInput(str);
-}
-
-function writeSeparator() {
-	let str = document.querySelector("textarea").value;
-	str = isEndWithSpace(str);
-	str += "这是分割线\n***\n";
-	document.querySelector("textarea").value = str;
-	processInput(str);
-}
-
-function writeCode() {
-	let str = document.querySelector("textarea").value;
-	str = isEndWithSpace(str);
-	str += "```\n这是代码\n```";
-	document.querySelector("textarea").value = str;
-	processInput(str);
-}
-
-function writeQuote() {
-	let str = document.querySelector("textarea").value;
-	str = isEndWithSpace(str);
-	str += "> 这是引用\n> 这也是引用";
-	document.querySelector("textarea").value = str;
-	processInput(str);
-}
-
-function writeUnorderedList() {
-	let str = document.querySelector("textarea").value;
-	str = isEndWithSpace(str);
-	str += "* 无\n* 序\n* 列\n* 表";
-	document.querySelector("textarea").value = str;
-	processInput(str);
-}
-
-function writeOrderedList() {
-	let str = document.querySelector("textarea").value;
-	str = isEndWithSpace(str);
-	str += "1. 有\n2. 序\n3. 列\n4. 表";
+	str += target;
 	document.querySelector("textarea").value = str;
 	processInput(str);
 }

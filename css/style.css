@@ -10,21 +10,22 @@
 	padding: 2px;
 }
 
-.dropdown {
+.dropdown, .button {
     display: inline-block;
 	margin-letf: 1em;
 	margin-right: 1em;
 }
 
 .dropshow, .dropdown-content button, .button {
-    background-color: #dedeff;
+	background-color: white;
 	color: black;
 	font-size: 16px;
 	width: 6em;
 	text-align: center;
-	border: 2px solid pink;
+	border: 2px solid gray;
 	border-radius: 8px;
 	cursor: pointer;
+	outline:none;
 }
 
 .dropdown-content {
@@ -36,14 +37,8 @@
     display: block;
 }
 
-.button {
-    display: inline-block;
-	margin-letf: 1em;
-	margin-right: 1em;
-}
-
 .dropshow:hover, .dropdown-content button:hover, .button:hover {
-    background-color: #ffaa00;
+	background-color: darkgray;
     color: white;
 	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
@@ -60,24 +55,45 @@
 .right {
 	flex: 1;
 	padding: 15px;
-	border: 2px solid #bababa;
+	border: 2px solid lightgray;
 	overflow-y: scroll;
 }
 
-textarea {
+.left textarea {
 	width: 100%;
 	height: 100%;
-	border: 2px solid #bababa;
+	border: 2px solid lightgray;
 	resize: none;
 	font: 16px/1.25 "Helvetica Neue", Helvetica, Arial, sans-serif;
 	outline: none;
 }
 
+.img {
+	text-align: center;
+}
+
+a {
+	text-decoration: none;
+	color: skyblue;
+}
+
+hr {
+	width: 100%;
+	color: gray;
+	margin-top: 1.5em;
+	margin-bottom: 1.5em;
+}
+
+pre {
+	background-color: rgb(248, 248, 248) !important;
+	font-weight: 600;
+}
+
 blockquote {
-  font: 14px/1.5em normal helvetica, sans-serif;
+  font: 16px/1.5em normal helvetica, sans-serif;
   padding-left: 10px;
   padding-right: 15px;
-  border-left: 5px solid #ccc;
+  border-left: 5px solid gray;
 }
 
 .blockquote {
@@ -88,27 +104,16 @@ ul, ol {
 	padding-left: 20px;
 }
 
-hr {
-	width: 100%;
-	color: #987cb9;
-	margin-top: 20px;
-	margin-bottom: 20px;
+
+.copy {
+	text-align: center;
+	color: gray;
 }
 
-pre {
-	background-color: rgb(248, 248, 248) !important;
+.copy a {
+	color: black;
 }
 
 .code {
 	background-color: rgb(248, 248, 248);
-}
-
-.copy {
-	text-align: center;
-	color: #bababa;
-}
-
-.copy a {
-	text-decoration: none;
-	color: #000000;
 }
